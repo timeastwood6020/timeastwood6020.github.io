@@ -36,6 +36,7 @@ body {
     width: 100%;
     font-family: Helvetica;
     font-size: 18px;
+    font-weight: bold;
   }
   
   .byline {
@@ -77,6 +78,8 @@ body {
     box-shadow: 5px 0px 5px 0px rgba(0, 0, 50, 0.97);
     float: left;
     width: 50px;
+  }
+  
   }
   
   
