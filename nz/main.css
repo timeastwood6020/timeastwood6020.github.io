@@ -18,12 +18,12 @@ header p{
 
 .white,
 .white a:link,
-.white a:visited,
+.white a:visited
 {
     color: white;
 }
 
-header nav image {
+header nav img {
     border-radius: 50%;
 }
 
