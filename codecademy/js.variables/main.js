@@ -1,3 +1,4 @@
-let favoriteAnimal = "giraffe";
+let myName = 'Tim';
+let myCity = 'Innsbruck';
 
-console.log("My favorite animal: " + favoriteAnimal);
+console.log(`My name is ${myName}. My favorite city is ${myCity}.`)
