@@ -16,10 +16,13 @@ const map = L.map("map", {
 });
 
 console.log(document.querySelector("#map"));
-
+for (let entry of ROUTE){
+    console.log(entry);
 let mrk = L.marker([stop.lat, stop.lng]).addTo(map);
 mrk.bindPopup("
 <h4>Stop ${stop.nr}: ${stop.name}</h4>
-<p><a href="${stop.wikipedia}">Read about STop in Wikipedia</a></p>
+<p><a href="${stop.wikipedia}">Read about Stop in Wikipedia</a></p>
+).openPopup();
+}
 
 console.log(document.querySelector("#map"));
