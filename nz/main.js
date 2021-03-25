@@ -22,7 +22,11 @@ let mrk = L.marker([stop.lat, stop.lng]).addTo(map);
 mrk.bindPopup("
 <h4>Stop ${stop.nr}: ${stop.name}</h4>
 <p><a href="${stop.wikipedia}">Read about Stop in Wikipedia</a></p>
-).openPopup();
+);
+if (entry.nr==16) {
+    mrk.openPopup();
+}
 }
 
 console.log(document.querySelector("#map"));
+
