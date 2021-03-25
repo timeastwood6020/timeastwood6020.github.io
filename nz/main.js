@@ -1,11 +1,11 @@
 
 let stop = {
     nr: 16,
-    name: "Pancake Rocks"
-    lat: -42.118611
-    long: 171.326944
-    user: "timeastwood6020"
-    wikipedia: "https://de.wikipedia.org/wiki/Pancake_Rocks"
+    name: "Pancake Rocks",
+    lat: -42.118611,
+    long: 171.326944,
+    user: "timeastwood6020",
+    wikipedia: "https://de.wikipedia.org/wiki/Pancake_Rocks",
 };
 const map = L.map("map", {
     center [stop.lat, stop.long]
