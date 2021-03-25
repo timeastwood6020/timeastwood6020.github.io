@@ -8,7 +8,7 @@ let stop = {
     wikipedia: "https://de.wikipedia.org/wiki/Pancake_Rocks",
 };
 const map = L.map("map", {
-    center [stop.lat, stop.long]
+    center [stop.lat, stop.lng]
     zoom: 13
     layers: [
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png")
@@ -17,7 +17,9 @@ const map = L.map("map", {
 
 console.log(document.querySelector("#map"));
 
-let mrk = L.marker([-42.118611, 171.326944]).addTo(map)
-mrk.bindPopup("Pancake Rocks").openPopup()
+let mrk = L.marker([stop.lat, stop.lng]).addTo(map);
+mrk.bindPopup("
+<h4>Stop ${stop.nr}: ${stop.name}</h4>
+<p><a href="${stop.wikipedia}">Read about STop in Wikipedia</a></p>
 
 console.log(document.querySelector("#map"));
