@@ -43,10 +43,14 @@ if (entry.nr==16) {
 
 console.log(document.querySelector("#map"));
 
+nav.options.selectedIndex = 22-1
 nav.onchange = (evt) =>{
     let selected = evt.target.selectedIndex;
     let options = evt.target.options
     let value = options[selected].value;
     let link= "https://${username}.github.io//nz/index.html;
     console.log(username, link);
+
+    window.location.href = link;
+
 };
