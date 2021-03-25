@@ -29,7 +29,7 @@ for (let entry of ROUTE){
     console.log(entry);
 
     nav.innerHTML +=
-    <option value="$"
+    <option value="${entry.user}">Stop</option>
 let mrk = L.marker([stop.lat, stop.lng]).addTo(map);
 mrk.bindPopup("
 <h4>Stop ${stop.nr}: ${stop.name}</h4>
@@ -43,3 +43,10 @@ if (entry.nr==16) {
 
 console.log(document.querySelector("#map"));
 
+nav.onchange = (evt) =>{
+    let selected = evt.target.selectedIndex;
+    let options = evt.target.options
+    let value = options[selected].value;
+    let link= "https://${username}.github.io//nz/index.html;
+    console.log(username, link);
+};
