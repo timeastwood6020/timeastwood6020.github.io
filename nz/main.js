@@ -15,15 +15,28 @@ const map = L.map("map", {
     ]
 });
 
+let nav = document.querySelector("#navigation");
+console.log(nav);
+
+ROUTE.sort((stop1, stop2) =>{
+    return.stop1.nr > stop2.nr
+});
+
+
+
 console.log(document.querySelector("#map"));
 for (let entry of ROUTE){
     console.log(entry);
+
+    nav.innerHTML +=
+    <option value="$"
 let mrk = L.marker([stop.lat, stop.lng]).addTo(map);
 mrk.bindPopup("
 <h4>Stop ${stop.nr}: ${stop.name}</h4>
 <p><a href="${stop.wikipedia}">Read about Stop in Wikipedia</a></p>
 );
 if (entry.nr==16) {
+    map.setView([entry.lat, entry.lng],13)
     mrk.openPopup();
 }
 }
