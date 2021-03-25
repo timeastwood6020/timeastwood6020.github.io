@@ -9,3 +9,8 @@ const map = L.map("map", {
 });
 
 console.log(document.querySelector("#map"));
+
+let mrk = L.marker([-42.118611, 171.326944]).addTo(map)
+mrk.bindPopup("Pancake Rocks").openPopup()
+
+console.log(document.querySelector("#map"));
