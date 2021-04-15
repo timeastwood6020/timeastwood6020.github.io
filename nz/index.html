@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel= "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css">
-<script src=https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js></script>
-
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@0;1&family=Roboto+Condensed:ital@0;1&display=swap"
+        rel="stylesheet">
 
     <link rel="stylesheet" href="main.css">
-    <script src="main.js" href="main.css"></script>
 
+    <title>New Zealand Journey – Pancake Rocks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet-src.min.js"></script>
 
+    <link rel="stylesheet" href="main.css">
 
-    <title>New Zealand Journey - Pancake Rocks</title>
+    <script src="route.js"></script>
+
+    <script defer src="main.js"></script>
+
 </head>
+
 <body>
 
     <header>
@@ -32,7 +41,8 @@
                 <img src="images/user.jpg" alt="Rock Tower">
             </a>
             <address>
-                <a href="mailto:timothy.eastwood@student.uibk.ac.at"><i class="fas fa-envelope-square"></i>Tim Eastwood</a> -
+                <a href="mailto:timothy.eastwood@student.uibk.ac.at"><i class="fas fa-envelope-square"></i>Tim
+                    Eastwood</a> -
                 <a href="https://github.com/timeastwood6020"><i class="fab fa-github"></i>github Repo</a>
             </address>
         </nav>
@@ -43,32 +53,45 @@
     <main>
         <h1>Pancake Rocks - Enjoy the view and the crushinng waves!</h1>
         <p>
-            The Pancake Rocks are a heavily eroded limestone area where the sea bursts through several vertical blowholes during high tides. Together with the 'pancake'-layering of the limestone (created by immense pressure on alternating hard and soft layers of marine creatures and plant sediments),[1] these form the main attraction of the area. The base of the limestone was laid down and formed between 25 million and 35 million years ago
+            The Pancake Rocks are a heavily eroded limestone area where the sea bursts through several vertical
+            blowholes during high tides. Together with the 'pancake'-layering of the limestone (created by immense
+            pressure on alternating hard and soft layers of marine creatures and plant sediments),[1] these form the
+            main attraction of the area. The base of the limestone was laid down and formed between 25 million and 35
+            million years ago
             (Quelle: <a href="https://en.wikipedia.org/wiki/Punakaiki">Wikipedia</a>)
         </p>
 
         <h2>Pancake Rocks and Blowholes Walk</h2>
         <figure>
             <img src="images/attraction.jpg" alt="Blowholes">
-            <figcaption>View of a Blowhole. Bild: <a href="https://pixabay.com/photos/new-zealand-paparoa-national-park-4867746/"><i class="fas fa-camera"></i>Makalu</a></figcaption>
+            <figcaption>View of a Blowhole. Bild: <a
+                    href="https://pixabay.com/photos/new-zealand-paparoa-national-park-4867746/"><i
+                        class="fas fa-camera"></i>Makalu</a></figcaption>
         </figure>
 
         <p>
-            The Pancake Rocks are presently explorable by a number of walkways winding through the rock formations, parts of these wheelchair-accessible and others carved into stairways up and down the rock faces.[1] State Highway 6, the only through road on the West Coast, passes through the town. As well as visiting the rocks, tourists can stop and eat a stack of pancakes at a cafe across the road.
+            The Pancake Rocks are presently explorable by a number of walkways winding through the rock formations,
+            parts of these wheelchair-accessible and others carved into stairways up and down the rock faces.[1] State
+            Highway 6, the only through road on the West Coast, passes through the town. As well as visiting the rocks,
+            tourists can stop and eat a stack of pancakes at a cafe across the road.
             (Quelle: <a href="https://en.wikipedia.org/wiki/Punakaiki">Wikipedia</a>)
         </p>
 
         <h3>Overview map</h3>
         <div id="map"></div>
-        <label for ="navigation">Route navigation:</label>
+        <label for="navigation">Route navigation:</label>
         <select id="navigation">
         </select>
 
         <h3>Links</h3>
         <ul>
-            <li><a href="https://www.tripadvisor.at/Attraction_Review-g660716-d1117929-Reviews-Pancake_Rocks_and_Blowholes_Walk-Punakaiki_West_Coast_Region_South_Island.html">Tripadvisor</a></li>
-            <li><a href="https://www.westcoast.co.nz/plan-your-trip/punakaiki-pancake-rocks-and-blow-holes/">West Coast</a></li>
-            <li><a href="https://franks-travelbox.com/ozeanien/neuseeland/pancake-rocks-neuseeland/">Franks Travelbox</a></li>
+            <li><a
+                    href="https://www.tripadvisor.at/Attraction_Review-g660716-d1117929-Reviews-Pancake_Rocks_and_Blowholes_Walk-Punakaiki_West_Coast_Region_South_Island.html">Tripadvisor</a>
+            </li>
+            <li><a href="https://www.westcoast.co.nz/plan-your-trip/punakaiki-pancake-rocks-and-blow-holes/">West
+                    Coast</a></li>
+            <li><a href="https://franks-travelbox.com/ozeanien/neuseeland/pancake-rocks-neuseeland/">Franks
+                    Travelbox</a></li>
             <li><a href="https://wikitravel.org/de/Pancake_Rocks">WikiTravel</a></li>
         </ul>
 
@@ -76,13 +99,23 @@
 
     <hr>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" />
+
+
     <footer>
         <nav>
-            <a class="back"href="https://lucakorosec.github.io/nz/index.html"><i class="fas fa-arrow-left"></i> Franz Josef Gletscher</a>
-            <a class="next"href="https://annakeuschnigg.github.io/nz/index.html">Lake Rotoiti</a><i class="fas fa-arrow-right"></i>
+            <a class="back" href="https://lucakorosec.github.io/nz/index.html"><i class="fas fa-arrow-left"></i> Franz
+                Josef Gletscher</a>
+            <a class="next" href="https://annakeuschnigg.github.io/nz/index.html">Lake Rotoiti</a><i
+                class="fas fa-arrow-right"></i>
 
         </nav>
     </footer>
 
 </body>
+
 </html>
