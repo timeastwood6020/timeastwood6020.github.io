@@ -37,14 +37,14 @@ for (let entry of ROUTE) {
 <p><a href="${entry.wikipedia}"><i class="fas fa-external-link-alt mr-3"></i>Read about stop in Wikipedia</a></p>
 `);
 
-    if (entry.nr == 22) {
+    if (entry.nr == 16) {
         map.setView([entry.lat, entry.lng], 13);
         mrk.openPopup();
     }
 
 }
 
-nav.selectedIndex = 22 - 1;
+nav.selectedIndex = 16 - 1;
 nav.onchange = (evt) => {
     console.log(evt.target.selectedIndex);
     let selected = evt.target.selectedIndex;
