@@ -35,10 +35,17 @@ fetch(awsUrl)
                 station.geometry.coordinates[1],
                 station.geometry.coordinates[0]
             ]);
-            marker.bindPopup(`<h3>${station.properties.name}</h3>`);
+            marker.bindPopup(`
+            <h3>${station.properties.name}</h3>
+            <ul>
+            <li>Datum: ${station.proporties.date}</li>
+            <li>Temperatur: ${station.proporties.LT} C</li>
+            </ul>
+
+            `);
             marker.addTo(awsLayer);
         }
 
         map.fitBounds(awsLayer.getBounds());
-        
+
     });
