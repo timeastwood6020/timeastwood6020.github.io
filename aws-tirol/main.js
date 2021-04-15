@@ -1,33 +1,3 @@
-Skip to content
-Why GitHub? 
-Team
-Enterprise
-Explore 
-Marketplace
-Pricing 
-Search
-
-Sign in
-Sign up
-webmapping
-/
-webmapping.github.io
-00
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-webmapping.github.io/aws-tirol/main.js /
-@oeggl
-oeggl add locale date formatting
-Latest commit 14939eb 10 seconds ago
- History
- 1 contributor
-50 lines (44 sloc)  1.53 KB
-  
 let basemapGray = L.tileLayer.provider('BasemapAT.grau');
 
 let map = L.map("map", {
@@ -70,7 +40,11 @@ fetch(awsUrl)
             <h3>${station.properties.name}</h3>
             <ul>
               <li>Datum: ${formattedDate.toLocaleString("de")}</li>
+              <li>Seehöhe: ${station.geometry.coordinates[2]} m</li>
               <li>Temperatur: ${station.properties.LT} C</li>
+              <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
+              <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
+              <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
             </ul>
             `);
             marker.addTo(awsLayer);
@@ -78,3 +52,4 @@ fetch(awsUrl)
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
     });
+    
