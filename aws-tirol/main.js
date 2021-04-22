@@ -8,13 +8,14 @@ let map = L.map("map", {
     ]
 });
 
-let overlays ={
+let overlays = {
     stations: L.featureGroup(),
     temperature: L.featureGroup(),
-    snoowheight: L.featureGroup(),
+    snowheight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup()
 };
+
 
 let layerControl = L.control.layers({
     "BasemapAT.grau": basemapGray,
@@ -25,18 +26,27 @@ let layerControl = L.control.layers({
         L.tileLayer.provider('BasemapAT.overlay')
     ])
 }, {
-    "Wetterstationen Tirol": overlays.stations, 
-    "Temperatur (C)": overlays.temperature,
-    "Schneehöhe (cm)": overlays.snoowheight,
-    "Windgeschwindigkeit (km/h)": overlays.windspeed,
+    "Wetterstationen Tirol": overlays.stations,
+    "Temperatur (°C)": overlays.temperature,
+    "Schneehöhe (cm)": overlays.snowheight,
+    "Windgeschwindigkeit (km/h)":  overlays.windspeed,
     "Windrichtung": overlays.winddirection
 }, {
     collapsed: false
-}
-
-L.control.scale
 }).addTo(map);
 overlays.temperature.addTo(map);
+
+L.control.scale({
+    imperial: false
+}).addTo(map);
+
+let newLabel = (coords, options) => {
+    console.log("Koordinaten coords: ", coords);
+    console.log("Optionsobjekt:", options);
+    let marker = L.marker([coords[1], coords[0]]);
+    console.log("Marker:", marker);
+    return marker;
+};
 
 let awsUrl = 'https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson';
 fetch(awsUrl)
@@ -58,12 +68,12 @@ fetch(awsUrl)
               <li>Temperatur: ${station.properties.LT} C</li>
               <li>Schneehöhe: ${station.properties.HS || '?'} cm</li>
               <li>Windgeschwindigkeit: ${station.properties.WG || '?'} km/h</li>
-              <li>Windgeschwindrichtung: ${station.properties.WR || '?'}</li>
+              <li>Windrichtung: ${station.properties.WR || '?'}</li>
             </ul>
             <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
             marker.addTo(overlays.stations);
-            if (station.properties.HS) {
+            if (typeof station.properties.HS == "number") {
                 let highlightClass = '';
                 if (station.properties.HS > 100) {
                     highlightClass = 'snow-100';
@@ -80,9 +90,9 @@ fetch(awsUrl)
                 ], {
                     icon: snowIcon
                 });
-                snowMarker.addTo(overlays.snoowheight);
+                snowMarker.addTo(overlays.snowheight);
             }
-            if (station.properties.WG) {
+            if (typeof station.properties.WG == "number") {
                 let windHighlightClass = '';
                 if (station.properties.WG > 10) {
                     windHighlightClass = 'wind-10';
@@ -101,20 +111,16 @@ fetch(awsUrl)
                 });
                 windMarker.addTo(overlays.windspeed);
             }
+            if (typeof station.properties.LT == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
+                    value: station.properties.LT
+                });
+                marker.addTo(overlays.temperature);
+            }
         }
         // set map view to all stations
         map.fitBounds(overlays.stations.getBounds());
     });
-
-    //https://leafletjs.com/reference-1.7.1.html#featuregroup
-    let awsLayer = L.featureGroup();
-layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-
-//https://leafletjs.com/reference-1.7.1.html#layer
-var layer = L.marker(latlng).addTo(map);
-layer.addTo(map);
-layer.remove();
-
 //L.tilelyer
 // https://leafletjs.com/reference-1.7.1.html#gridlayer
 
