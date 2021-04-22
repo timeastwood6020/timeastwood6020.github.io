@@ -98,3 +98,5 @@ fetch(awsUrl)
         // set map view to all stations
         map.fitBounds(awsLayer.getBounds());
     });
+
+    
