@@ -30,7 +30,11 @@ let layerControl = L.control.layers({
     "Schneehöhe (cm)": overlays.snoowheight,
     "Windgeschwindigkeit (km/h)": overlays.windspeed,
     "Windrichtung": overlays.winddirection
+}, {
+    collapsed: false
+}
 
+L.control.scale
 }).addTo(map);
 overlays.temperature.addTo(map);
 
