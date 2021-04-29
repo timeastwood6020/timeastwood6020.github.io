@@ -106,6 +106,25 @@ let drawPedestrianAreas = (geojsonData) => {
     }).addTo(overlays.pedAreas);
 }
 
+let drawAttraction = (geojsonData) => {
+    L.geoJson(geojsonData, {
+        onEachFeature: (feature, layer) => {
+            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            <hr>
+            Station: ${feature.properties.STAT_NAME}`)
+        },
+        pointToLayer: (geoJsonPoint, latlng) => {
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/sehenswuerdigogd.png",
+                    iconSize: [38, 38]
+                })
+            })
+        },
+        attribution: '<a href="https://data.wien.gv.at">Stadt Wien</a>, <a href="https://mapicons.mapsmarker.com">Maps Icons Collection</a>'
+    }).addTo(overlays.Attraction);
+
+
 for (let config of OGDWIEN) {
     // console.log("Config: ", config.data);
     fetch(config.data)
