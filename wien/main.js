@@ -18,6 +18,7 @@ let overlays = {
     busLines: L.featureGroup(),
     busStops: L.featureGroup(),
     pedAreas: L.featureGroup()
+    Attraction: L.featureGroup()
 };
 
 // Karte initialisieren und auf Wiens Wikipedia Koordinate blicken
@@ -41,6 +42,7 @@ let layerControl = L.control.layers({
     "Liniennetz Vienna Sightseeing": overlays.busLines,
     "Haltestellen Vienna Sightseeing": overlays.busStops,
     "Fußgängerzonen": overlays.pedAreas
+    "Sehenswürdikeiten": overlays.Attraction
 }).addTo(map);
 
 // alle Overlays nach dem Laden anzeigen
@@ -137,6 +139,8 @@ for (let config of OGDWIEN) {
                 drawBusLines(geojsonData);
             } else if (config.title === "Fußgängerzonen") {
                 drawPedestrianAreas(geojsonData);
+                else if(config.title == "Sehenswürdigkeiten") {
+                    drawAttraction(geojsonData);
             }
         })
 }
