@@ -155,3 +155,10 @@ var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap"),{
     toggleDisplay: true, minimized: true
 }
 ).addTo(map);
+
+5b3ce3597851110001cf6248fb6f58176de0477f944b4c79efdeb7bb
+
+L.control.reachability({
+    // add settings/options here
+    apiKey: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+}).addTo(map);
