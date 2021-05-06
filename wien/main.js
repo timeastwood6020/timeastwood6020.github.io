@@ -150,3 +150,6 @@ for (let config of OGDWIEN) {
 
 
 var hash = new L.hash(map);
+
+var miniMap = new L.Control.MiniMap(L.tileLayer.provider("BasemapAT.basemap")
+).addTo(map);
