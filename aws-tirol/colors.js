@@ -118,7 +118,7 @@ const COLORS = {
         max: 1000,
         col: "#cd0feb"
     }]
-    humidity: [{
+    humidity: [ {
         min: 0,
         max: 30,
         col: "#EEE"
