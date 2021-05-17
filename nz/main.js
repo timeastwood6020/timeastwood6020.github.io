@@ -11,8 +11,8 @@ let stop = {
 
 const map = L.map("map", {
     fullscreenControl: true,
-    center: [stop.at, stop.lng]
-    zoom: 13   
+    center: [stop.at, stop.lng],
+    zoom: 13,   
      layers: [
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
     ]
@@ -20,12 +20,12 @@ const map = L.map("map", {
 
 // Minimap erstellen //
 var miniMap = new L.Control.MiniMap(
-    L.tileLayer.provider("CyclOSM"), {
+    L.tileLayer.provider("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"), {
         toggleDisplay: true,
         minimized: false,
-        zoomLevelOffset: -5
     }
 ).addTo(map);
+
 
 let nav = document.querySelector('#navigation');
 console.log('Navigation HTML Element: ', nav);
