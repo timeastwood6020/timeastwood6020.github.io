@@ -21,7 +21,6 @@ let overlays = {
 
 // Karte initialisieren und auf Innsbrucks Wikipedia Koordinate blicken
 let map = L.map("map", {
-    fullscreenControl: true,
     center: [47.267222, 11.392778],
     zoom: 9,
     layers: [
@@ -43,6 +42,12 @@ let layerControl = L.control.layers({
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
 
+const elevationControl = L.control.elevation({
+    elevationDiv: "#profile",
+    followMarker: false,
+    theme: 'lime-theme',
+}).addTo(map);
+
 const drawTrack = (nr) => {
     // console.log('Track: ', nr);
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
@@ -60,7 +65,6 @@ const drawTrack = (nr) => {
     gpxTrack.on("loaded", () => {
         console.log('loaded gpx');
         map.fitBounds(gpxTrack.getBounds());
-
         console.log('Track name: ', gpxTrack.get_distance());
         gpxTrack.bindPopup(`
         <h3>${gpxTrack.get_name()}</h3>
@@ -72,12 +76,10 @@ const drawTrack = (nr) => {
             <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
         </ul>
         `);
+        // TODO: popup with
+        // Name, max_height, min_height, total_dist
     });
-
-    // Aufgabe: popup with: NAME, Kössen-Kitzbühel
-    //MAX_HEIGHT; 1720m
-    //MIN_HEIGHT; 610m
-    //TOTAL DIST 56km
+    elevationControl.load(`tracks/${nr}.gpx`);
 };
 
 const selectedTrack = 11;
