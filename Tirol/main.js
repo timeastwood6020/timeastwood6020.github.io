@@ -60,8 +60,25 @@ const drawTrack = (nr) => {
     gpxTrack.on("loaded", () => {
         console.log('loaded gpx');
         map.fitBounds(gpxTrack.getBounds());
-    })
+
+        console.log('Track name: ', gpxTrack.get_distance());
+        gpxTrack.bindPopup(`
+        <h3>${gpxTrack.get_name()}</h3>
+        <ul>
+            <li>Streckenlänge: ${gpxTrack.get_distance()} m</li>
+            <li>tiefster Punkt: ${gpxTrack.get_elevation_min()} m</li>
+            <li>höchster Punkt: ${gpxTrack.get_elevation_max()} m</li>
+            <li>Höhenmeter bergauf: ${gpxTrack.get_elevation_gain()} m</li>
+            <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
+        </ul>
+        `);
+    });
+
+    // Aufgabe: popup with: NAME, Kössen-Kitzbühel
+    //MAX_HEIGHT; 1720m
+    //MIN_HEIGHT; 610m
+    //TOTAL DIST 56km
 };
 
-const selectedTrack = 7;
+const selectedTrack = 11;
 drawTrack(selectedTrack);
