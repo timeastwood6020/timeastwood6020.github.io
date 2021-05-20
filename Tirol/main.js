@@ -50,7 +50,7 @@ const elevationControl = L.control.elevation({
 
 const drawTrack = (nr) => {
     // console.log('Track: ', nr);
-    levationControl.clear();
+    elevationControl.clear();
     overlays.tracks.clearLayers();
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true,
@@ -65,9 +65,9 @@ const drawTrack = (nr) => {
         },
     }).addTo(overlays.tracks);
     gpxTrack.on("loaded", () => {
-        console.log('loaded gpx');
+        // console.log('loaded gpx');
         map.fitBounds(gpxTrack.getBounds());
-        console.log('Track name: ', gpxTrack.get_distance());
+        // console.log('Track name: ', gpxTrack.get_distance());
         gpxTrack.bindPopup(`
         <h3>${gpxTrack.get_name()}</h3>
         <ul>
@@ -87,9 +87,9 @@ const drawTrack = (nr) => {
 const selectedTrack = 11;
 drawTrack(selectedTrack);
 
-console.log('biketirol json: ', BIKETIROL);
+// console.log('biketirol json: ', BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
-console.log('Pulldown: ', pulldown);
+// console.log('Pulldown: ', pulldown);
 let selected = '';
 for (let track of BIKETIROL) {
     if (selectedTrack == track.nr) {
@@ -101,6 +101,6 @@ for (let track of BIKETIROL) {
 }
 
 pulldown.onchange = () => {
-    console.log('changed!!!!!', pulldown.value);
+    // console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
 };
