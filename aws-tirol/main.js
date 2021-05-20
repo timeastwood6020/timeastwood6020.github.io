@@ -1,6 +1,7 @@
 let basemapGray = L.tileLayer.provider('BasemapAT.grau');
 
 let map = L.map("map", {
+    fullscreenControl: true,
     center: [47, 11],
     zoom: 9,
     layers: [
@@ -31,8 +32,8 @@ let layerControl = L.control.layers({
     "Temperatur (°C)": overlays.temperature,
     "Schneehöhe (cm)": overlays.snowheight,
     "Windgeschwindigkeit (km/h)":  overlays.windspeed,
-    "Windrichtung": overlays.winddirection
-    "Relative Luftfeuchtigkeit (%)": overlays.humidity
+    "Windrichtung": overlays.winddirection,
+    "Relative Luftfeuchtigkeit (%)": overlays.humidity,
     
 
 }, {
