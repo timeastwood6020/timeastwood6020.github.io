@@ -55,7 +55,7 @@ const elevationControl = L.control.elevation({
 // Wikipedia Artikel Zeichnen
 const drawWikipedia = (bounds) => {
     console.log(bounds);
-    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=webmapping&lang=de&maxRows=30`;
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
     console.log(url);
 
     let icons = {
@@ -81,7 +81,22 @@ const drawWikipedia = (bounds) => {
 
         // Artikel Marker erzeugen
         for (let article of jsonData.geonames) {
-            let mrk = L.marker([article.lat, article.lng]);
+            // welches Icon soll verwendet werden?
+            if (icons[article.feature]) {
+                // ein Bekanntes
+            } else {
+                // unser generisches Info-Icon
+                article.feature = "default";
+            }
+
+            let mrk = L.marker([article.lat, article.lng], {
+                icon: L.icon({
+                    iconUrl: `icons/${icons[article.feature]}`,
+                    iconSize: [32, 37],
+                    iconAnchor: [16, 37],
+                    popupAnchor: [0, -37],
+                })
+            });
             mrk.addTo(overlays.wikipedia);
 
             // optionales Bild definieren
@@ -144,9 +159,6 @@ const drawTrack = (nr) => {
             <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
         </ul>
         `);
-
-        // Wikipedia Artikel zeichnen
-        drawWikipedia(gpxTrack.getBounds());
     });
     elevationControl.load(`tracks/${nr}.gpx`);
     elevationControl.on('eledata_loaded', (evt) => {
@@ -177,3 +189,8 @@ pulldown.onchange = () => {
     // console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
 };
+
+map.on("zoomend moveend", () => {
+    // Wikipedia Artikel zeichnen
+    drawWikipedia(map.getBounds());
+});
