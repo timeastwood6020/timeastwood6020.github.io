@@ -52,6 +52,19 @@ const elevationControl = L.control.elevation({
     theme: 'lime-theme',
 }).addTo(map);
 
+// Wikipedia Artikel Zeichnen
+const drawWikipedia = (bounds) => {
+    console.log(bounds);
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
+    console.log(url);
+};
+
+fetch(url).then(
+    response => response.json()
+).then(jsonData => {
+    console.log(jsonData)
+});
+ 
 const drawTrack = (nr) => {
     // console.log('Track: ', nr);
     elevationControl.clear();
@@ -82,6 +95,11 @@ const drawTrack = (nr) => {
             <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
         </ul>
         `);
+
+        // Wikipedia Artikel zeichnen
+
+        drawWikipedia(gpxTrack.getBounds())),
+
         // TODO: popup with
         // Name, max_height, min_height, total_dist
     });
