@@ -160,7 +160,6 @@ const drawTrack = (nr) => {
     elevationControl.load(`tracks/${nr}.gpx`);
 };
 
-};
 
 const selectedTrack = 11;
 drawTrack(selectedTrack);
