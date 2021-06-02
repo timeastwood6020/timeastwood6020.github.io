@@ -127,6 +127,7 @@ const elevationControl = L.control.elevation({
     });
 };
 
+let activeElevationTrack;
 
 const drawTrack = (nr) => {
     elevationControl.clear();
@@ -151,15 +152,20 @@ const drawTrack = (nr) => {
         gpxTrack.bindPopup(`
         <h3>${gpxTrack.get_name()}</h3>
             <ul>
-            <li>Streckenlänge: ${gpxTrack.get_distance().toFixed(0)} m</li>  
-            <li>maximale Höhe: ${gpxTrack.get_elevation_max().toFixed(0)} m</li>
-            <li>minimale Höhe: ${gpxTrack.get_elevation_min().toFixed(0)} m</li>
+            <li>Streckenlänge: ${gpxTrack.get_distance()} m</li>
+            <li>tiefster Punkt: ${gpxTrack.get_elevation_min()} m</li>
+            <li>höchster Punkt: ${gpxTrack.get_elevation_max()} m</li>
+            <li>Höhenmeter bergauf: ${gpxTrack.get_elevation_gain()} m</li>
+            <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
             </ul>
             `);
     });
     elevationControl.load(`tracks/${nr}.gpx`);
-};
+    elevationControl.on('eledata_loaded', (evt) => {
+        activeElevationTrack = evt.layer;
+});
 
+};
 
 const selectedTrack = 11;
 drawTrack(selectedTrack);
