@@ -28,6 +28,14 @@ let map = L.map("map", {
         baselayers.grau
     ]
 })
+
+// Wikipedia Artikel Zeichnen
+let articleDrawn = {};
+const drawWikipedia = (bounds) => {
+    //console.log(bounds);
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
+    //console.log(url);
+
 // Kartenhintergründe und Overlays zur Layer-Control hinzufügen
 let layerControl = L.control.layers({
     "basemap.at Standard": baselayers.standard,
@@ -45,18 +53,12 @@ let layerControl = L.control.layers({
 overlays.tracks.addTo(map);
 overlays.wikipedia.addTo(map);
 
-// Elevation control initialisieren
 const elevationControl = L.control.elevation({
     elevationDiv: "#profile",
     followMarker: false,
     theme: 'lime-theme',
 }).addTo(map);
 
-// Wikipedia Artikel Zeichnen
-const drawWikipedia = (bounds) => {
-    console.log(bounds);
-    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
-    console.log(url);
 
     let icons = {
         adm1st: "wikipedia_administration.png",
@@ -73,14 +75,23 @@ const drawWikipedia = (bounds) => {
         default: "wikipedia_information.png",
     };
 
-    // URL bei geonames.org aufrufen und JSO-Daten abholen
+    
     fetch(url).then(
         response => response.json()
     ).then(jsonData => {
-        console.log(jsonData);
+        //console.log(jsonData);
 
         // Artikel Marker erzeugen
         for (let article of jsonData.geonames) {
+            // habe ich den Artikel schon gezeichnet?
+            if (articleDrawn[article.wikipediaUrl]) {
+                // Ja, nicht noch einal zeichnen
+                //console.log("schon gesehen", article.wikipediaUrl);
+                continue;
+            } else {
+                articleDrawn[article.wikipediaUrl] = true;
+            }
+
             // welches Icon soll verwendet werden?
             if (icons[article.feature]) {
                 // ein Bekanntes
@@ -99,7 +110,7 @@ const drawWikipedia = (bounds) => {
             });
             mrk.addTo(overlays.wikipedia);
 
-            // optionales Bild definieren
+            // Bild definieren
             let img = "";
             if (article.thumbnailImg) {
                 img = `<img src="${article.thumbnailImg}" alt="thumbnail">`;
@@ -167,8 +178,27 @@ const drawTrack = (nr) => {
 
 };
 
-const selectedTrack = 7;
+const selectedTrack = 11;
 drawTrack(selectedTrack);
+
+const updateTexts = (nr) => {
+    console.log(nr);
+    for (let etappe of BIKETIROL) {
+        //console.log(etappe);
+        if (etappe.nr == nr) {
+            etappe.homepage = `<a href="${etappe.weblink}">Homepage</a>`
+            //console.log("unsere Etappe", etappe);
+            for (let key in etappe) {
+                //console.log("key:", key, "value:", etappe[key]);
+                // gibt es ein Element im HTML mit der ID von "key"
+                if (document.querySelector(`#text-${key}`)) {
+                    //console.log("Juhu", key, etappe[key]);
+                    document.querySelector(`#text-${key}`).innerHTML = etappe[key];
+                }
+            }
+        }
+    }
+};
 
 // console.log('biketirol json: ', BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
@@ -183,11 +213,17 @@ for (let track of BIKETIROL) {
     }
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}: ${track.etappe}</option>`;
 }
+// Metadaten der Etappe updaten
+updateTexts(pulldown.value);
+
 
 // Eventhandler fuer Aenderung des Dropdown
 pulldown.onchange = () => {
     // console.log('changed!!!!!', pulldown.value);
     drawTrack(pulldown.value);
+
+    // Metadaten der Etappe updaten
+    updateTexts(pulldown.value);
 };
 
 map.on("zoomend moveend", () => {
