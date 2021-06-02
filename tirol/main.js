@@ -83,7 +83,6 @@ const elevationControl = L.control.elevation({
 
         // Artikel Marker erzeugen
         for (let article of jsonData.geonames) {
-            // habe ich den Artikel schon gezeichnet?
             if (articleDrawn[article.wikipediaUrl]) {
                 // Ja, nicht noch einal zeichnen
                 //console.log("schon gesehen", article.wikipediaUrl);
@@ -128,26 +127,16 @@ const elevationControl = L.control.elevation({
     });
 };
 
-let activeElevationTrack;
 
-// Funktion zum Zeichnen eines Tracks inkl. Hoehenprofil
 const drawTrack = (nr) => {
-    // console.log('Track: ', nr);
-    // clear elevation data:
     elevationControl.clear();
-    // clear GPX plugin layers
     overlays.tracks.clearLayers();
-    // bugfix for leaflet-elevation plugin not cleaning up
-    if (activeElevationTrack) {
-        activeElevationTrack.removeFrom(map);
-    }
-    // for new browsers:
-    // activeElevationTrack?.removeFrom(map);
+    //console.log('Track: ', nr);
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true,
         marker_options: {
             startIconUrl: `icons/number_${nr}.png`,
-            endIconUrl: 'icons/finish.png',
+            endIconUrl: `icons/finish.png`,
             shadowUrl: null,
         },
         polyline_options: {
@@ -155,26 +144,21 @@ const drawTrack = (nr) => {
             dashArray: [2, 5],
         },
     }).addTo(overlays.tracks);
-    // Eventhandler wenn alle Daten des GPX plugin geladen sind
     gpxTrack.on("loaded", () => {
-        // console.log('loaded gpx');
+        //console.log('loaded gpx');
         map.fitBounds(gpxTrack.getBounds());
-        // console.log('Track name: ', gpxTrack.get_distance());
+        //PopUp mit Name, max_height, min_height, total_dist
         gpxTrack.bindPopup(`
         <h3>${gpxTrack.get_name()}</h3>
-        <ul>
-            <li>Streckenlänge: ${gpxTrack.get_distance()} m</li>
-            <li>tiefster Punkt: ${gpxTrack.get_elevation_min()} m</li>
-            <li>höchster Punkt: ${gpxTrack.get_elevation_max()} m</li>
-            <li>Höhenmeter bergauf: ${gpxTrack.get_elevation_gain()} m</li>
-            <li>Höhenmeter bergab: ${gpxTrack.get_elevation_loss()} m</li>
-        </ul>
-        `);
+            <ul>
+            <li>Streckenlänge: ${gpxTrack.get_distance().toFixed(0)} m</li>  
+            <li>maximale Höhe: ${gpxTrack.get_elevation_max().toFixed(0)} m</li>
+            <li>minimale Höhe: ${gpxTrack.get_elevation_min().toFixed(0)} m</li>
+            </ul>
+            `);
     });
     elevationControl.load(`tracks/${nr}.gpx`);
-    elevationControl.on('eledata_loaded', (evt) => {
-        activeElevationTrack = evt.layer;
-    });
+};
 
 };
 
