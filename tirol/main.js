@@ -29,13 +29,6 @@ let map = L.map("map", {
     ]
 })
 
-// Wikipedia Artikel Zeichnen
-let articleDrawn = {};
-const drawWikipedia = (bounds) => {
-    //console.log(bounds);
-    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
-    //console.log(url);
-
 // Kartenhintergründe und Overlays zur Layer-Control hinzufügen
 let layerControl = L.control.layers({
     "basemap.at Standard": baselayers.standard,
@@ -59,6 +52,12 @@ const elevationControl = L.control.elevation({
     theme: 'lime-theme',
 }).addTo(map);
 
+// Wikipedia Artikel Zeichnen
+let articleDrawn = {};
+const drawWikipedia = (bounds) => {
+    //console.log(bounds);
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=timeastwood6020&lang=de&maxRows=30`;
+    //console.log(url);
 
     let icons = {
         adm1st: "wikipedia_administration.png",
